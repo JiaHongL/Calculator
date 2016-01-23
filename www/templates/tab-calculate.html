@@ -1,44 +1,44 @@
 <ion-view view-title="生命與攻擊計算">
   <ion-content overflow-scroll="false">
 	<div class="row responsive-lg">
-	  	<div class="col" style="margin:0px;">
-			<button class="button button-positive button-block" modal-select ng-model="get_name" options="select_name" modal-title="請選擇計算的英雄" has-search="true" cancel-button="取消" hide-reset="true" on-select="getOpt(get_name)">
+	  	<div class="col" style="margin:-10px 0px 0px 0px;">
+			<button class="button button-positive button-outline button-block" modal-select ng-model="get_name" options="select_name" modal-title="請選擇計算的英雄" has-search="true" cancel-button="取消" hide-reset="true" on-select="getOpt(get_name)">
 			    {{get_name.name||'請選擇計算的英雄'}}
 			    <div class="option">
 			        {{option.name}}
 			    </div>
 			</button>
 	  	</div>
-	  	<div class="col" style="margin:0px;">
-			<button class="button button-positive button-block" modal-select ng-model="get_class" options="select_class" modal-title="請選擇覺醒的階級"cancel-button="取消" hide-reset="true" on-select="getOpt2(get_class)">
+	  	<div class="col" style="margin:-20px 0px 0px 0px;">
+			<button class="button button-positive button-outline button-block" modal-select ng-model="get_class" options="select_class" modal-title="請選擇覺醒的階級"cancel-button="取消" hide-reset="true" on-select="getOpt2(get_class)">
 			    {{get_class.name||'請選擇覺醒的階級'}}
 			    <div class="option">
 			        {{option.name}}
 			    </div>
 			</button>
 	  	</div>
-	  	<div class="col" style="margin:0px;">
-			<button class="button button-positive button-block" modal-select ng-model="get_star" options="select_star" modal-title="請選擇英雄的星級" cancel-button="取消" hide-reset="true" on-select="getOpt3(get_star)">
+	  	<div class="col" style="margin:-20px 0px 0px 0px;">
+			<button class="button button-positive button-outline button-block" modal-select ng-model="get_star" options="select_star" modal-title="請選擇英雄的星級" cancel-button="取消" hide-reset="true" on-select="getOpt3(get_star)">
 			    {{get_star.name||'請選擇英雄的星級'}}
 			    <div class="option">
 			        {{option.name}}
 			    </div>
 			</button>
 	  	</div>
-	  	<div class="col" style="margin:0px;">
+	  	<div class="col" style="margin:-10px 0px 0px 0px;">
 			<label class="item item-input">
 			  <span class="input-label">請輸入目前等級</span>
 			  <input type="number" ng-model="input.number">
 			</label>
 	  	</div>
 	</div>
-	<div class="row responsive-lg">
-	  	<div class="col">
-			<button class="button button-block button-positive"  ng-disabled="check.status" ng-click="Calculate()">{{btn_status}}</button>
+	<div class="row responsive-lg" style="margin:-15px 0px 0px 0px;">
+	  	<div class="col" style="margin:0px;">
+			<button class="button button-block button-calm"  ng-disabled="check.status" ng-click="Calculate()">{{btn_status}}</button>
 		</div>
 	</div>
-	<div class="row responsive-lg" ng-if="is_show">
-	  	<div class="col">
+	<div class="row responsive-lg" ng-if="is_show" style="margin:-15px 0px 0px 0px;">
+	  	<div class="col" >
 			<ul class="list">
 			    <li class="item">
 					英雄名稱 : {{name_d}}  星級 : {{star_d}}星 {{lv}}等
