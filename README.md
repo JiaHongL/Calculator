@@ -1,2 +1,1 @@
-# Calculator
-Calculator
+#簡易計算器
