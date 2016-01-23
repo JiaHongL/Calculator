@@ -45,7 +45,8 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 		{name:'血族親王'},
 		{name:'鷹身女王'},
 		{name:'影舞者'},
-		{name:'幽靈法師'}
+		{name:'幽靈法師'},
+		{name:'蒼藍之翼'}
 	  ];
 
 	$scope.get_class='';
