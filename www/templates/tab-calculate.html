@@ -1,65 +1,31 @@
 <ion-view view-title="生命與攻擊計算">
   <ion-content overflow-scroll="false">
 	<div class="row responsive-lg">
-	  	<div class="col">
-	  		<label style="color: #444;font-size:16px;padding-right:10px;">請選擇計算英雄</label>
-	  		<select class="select_1" style="width:150px;">
-				<option value="愛神" selected="selected" >愛神</option>
-				<option value="不死領主">不死領主</option>
-				<option value="德魯伊">德魯伊</option>
-				<option value="法老">法老</option>
-				<option value="海盜船長">海盜船長</option>
-				<option value="花妖">花妖</option>
-				<option value="毀滅之王">毀滅之王</option>
-				<option value="混沌騎士">混沌騎士</option>
-				<option value="火焰之翼">火焰之翼</option>
-				<option value="雷神">雷神</option>
-				<option value="烈焰術士">烈焰術士</option>
-				<option value="鱗甲毒蠍">鱗甲毒蠍</option>
-				<option value="魅魔">魅魔</option>
-				<option value="娜迦祭司">娜迦祭司</option>
-				<option value="南瓜公爵">南瓜公爵</option>
-				<option value="牛頭酋長">牛頭酋長</option>
-				<option value="森林之王">森林之王</option>
-				<option value="山丘之王">山丘之王</option>
-				<option value="聖誕老人">聖誕老人</option>
-				<option value="聖誕女郎">聖誕女郎</option>
-				<option value="聖騎士">聖騎士</option>
-				<option value="死神">死神</option>
-				<option value="死亡騎士">死亡騎士</option>
-				<option value="邪眼惡靈">邪眼惡靈</option>
-				<option value="雪人">雪人</option>
-				<option value="血斧">血斧</option>
-				<option value="血族親王">血族親王</option>
-				<option value="鷹身女王">鷹身女王</option>
-				<option value="影舞者">影舞者</option>
-				<option value="幽靈法師">幽靈法師</option>
-			</select>
+	  	<div class="col" style="margin:0px;">
+			<button class="button button-positive button-block" modal-select ng-model="get_name" options="select_name" modal-title="請選擇計算的英雄" has-search="true" cancel-button="取消" hide-reset="true" on-select="getOpt(get_name)">
+			    {{get_name.name||'請選擇計算的英雄'}}
+			    <div class="option">
+			        {{option.name}}
+			    </div>
+			</button>
 	  	</div>
-	  	<div class="col">
-	  		<label style="color: #444;font-size:16px;padding-right:10px;">請選擇覺醒階級</label>
-	  		<select class="select_2" style="width:150px;">
-	  			<option value="0">未覺醒</option>
-	  			<option value="1">一轉</option>
-	  			<option value="2">二轉</option>
-			</select>
+	  	<div class="col" style="margin:0px;">
+			<button class="button button-positive button-block" modal-select ng-model="get_class" options="select_class" modal-title="請選擇覺醒的階級"cancel-button="取消" hide-reset="true" on-select="getOpt2(get_class)">
+			    {{get_class.name||'請選擇覺醒的階級'}}
+			    <div class="option">
+			        {{option.name}}
+			    </div>
+			</button>
 	  	</div>
-	  	<div class="col">
-	  		<label style="color: #444;font-size:16px;padding-right:10px;">請選擇覺醒階級</label>
-	  		<select class="select_3" style="width:150px;">		
-	  			<option value="1">一星</option>
-	  			<option value="2">二星</option>
-	  			<option value="3">三星</option>
-	  			<option value="4">四星</option>
-	  			<option value="5">五星</option>
-	  			<option value="6">六星</option>
-	  			<option value="7">七星</option>
-	  			<option value="8">八星</option>
-	  			<option value="9">九星</option>
-	  			<option value="10">十星</option>
-			</select>
+	  	<div class="col" style="margin:0px;">
+			<button class="button button-positive button-block" modal-select ng-model="get_star" options="select_star" modal-title="請選擇英雄的星級" cancel-button="取消" hide-reset="true" on-select="getOpt3(get_star)">
+			    {{get_star.name||'請選擇英雄的星級'}}
+			    <div class="option">
+			        {{option.name}}
+			    </div>
+			</button>
 	  	</div>
-	  	<div class="col">
+	  	<div class="col" style="margin:0px;">
 			<label class="item item-input">
 			  <span class="input-label">請輸入目前等級</span>
 			  <input type="number" ng-model="input.number">
@@ -73,10 +39,9 @@
 	</div>
 	<div class="row responsive-lg" ng-if="is_show">
 	  	<div class="col">
-	  		<h3 style="text-align:center;">計算結果</h3>
 			<ul class="list">
 			    <li class="item">
-					英雄名稱 : {{name_d}}  星級 : {{star_d}}星
+					英雄名稱 : {{name_d}}  星級 : {{star_d}}星 {{lv}}等
 			    </li>
 			    <li class="item">
 			    	星級生命值 : {{life}} 星級攻擊 : {{at}}
@@ -91,6 +56,5 @@
 			</ul>
 		</div>
 	</div>
-
   </ion-content>
 </ion-view>

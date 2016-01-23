@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var myApp = angular.module('myApp', ['ionic']);
+var myApp = angular.module('myApp', ['ionic','ionic-modal-select']);
 
 
 myApp.run(function($ionicPlatform) {
