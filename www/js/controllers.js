@@ -127,7 +127,19 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 
 });
 
-myApp.controller('calculate2Ctrl', function($scope) {
+myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading) {
+	$scope.hero_skill_list = '';
+	$ionicLoading.show({
+      template: '載入資料中...'
+    });
+	$timeout(function() {
+	    igg.get_hero_skill().then(function(res){
+			console.log(res);
+			$ionicLoading.hide();
+			$scope.hero_skill_list = res.data.results;
+		});		
+ 	}, 3000);
+	
 
 });
 
