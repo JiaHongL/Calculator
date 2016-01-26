@@ -134,7 +134,7 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
     });
 	$timeout(function() {
 	    igg.get_hero_skill().then(function(res){
-			console.log(res);
+			// console.log(res);
 			$ionicLoading.hide();
 			$scope.hero_skill_list = res.data.results;
 		});		
