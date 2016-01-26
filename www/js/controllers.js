@@ -127,7 +127,7 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 
 });
 
-myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading) {
+myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$ionicScrollDelegate) {
 	$scope.hero_skill_list = '';
 	$ionicLoading.show({
       template: '載入資料中...'
@@ -138,7 +138,12 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading) {
 			$ionicLoading.hide();
 			$scope.hero_skill_list = res.data.results;
 		});		
- 	}, 3000);
+ 	}, 100);
+	
+	$scope.gotop = function(){
+		$ionicScrollDelegate.resize();
+    	$ionicScrollDelegate.anchorScroll(false); //回顶部2
+	}
 	
 
 });
