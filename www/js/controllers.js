@@ -19,13 +19,12 @@ myApp.controller('calculateCtrl', function($scope,igg) {
     url: "https://spreadsheets.google.com/feeds/list/1Su8cajlsyRYssKkuOiBuDAVrO8h6hIxlr0ucl1ahsZQ/od6/public/values?alt=json-in-script&callback=?",
     dataType: "jsonp",
 	    success: function(json){
-	    	console.log(json);
 	        $scope.hero_data =[];
 	        _(json.feed.entry).each(function (item) {
 	        	var d = {'name':item.gsx$name.$t,'name_2':item.gsx$name2.$t,'class':item.gsx$class.$t,'star':item.gsx$star.$t,'attack':item.gsx$attack.$t,'life':item.gsx$life.$t,'attack_up':item.gsx$attackup.$t,'life_up':item.gsx$lifeup.$t}
 	        	$scope.hero_data.push(d);
 	        });
-	        console.log($scope.hero_data);
+	        $scope.$apply();
 	    }
     });
 
@@ -118,7 +117,6 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 			var class_type = $scope.get_class.class_d;
 			var star_type = $scope.get_star.star;
 			var d2 = _.where($scope.hero_data, {name:name_type, star:star_type.toString(), class:class_type.toString()});	
-			console.log(d2);
 			$scope.check ={'status':false};
 			$scope.btn_status = "計算數值";
 			$scope.name_d = d2[0].name2;
@@ -154,6 +152,8 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
 	        	$scope.hero_skill_list.push(d);
 	        });
 	        $ionicLoading.hide();
+	        $scope.$apply();
+	        
 	    }
     });
 	
