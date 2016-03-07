@@ -17,7 +17,7 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 	$.ajax({
     type: "get",
     url: "https://spreadsheets.google.com/feeds/list/1Su8cajlsyRYssKkuOiBuDAVrO8h6hIxlr0ucl1ahsZQ/od6/public/values?alt=json-in-script&callback=?",
-    dataType: "jsonp",
+    dataType: "json",
 	    success: function(json){
 	        $scope.hero_data =[];
 	        _(json.feed.entry).each(function (item) {
@@ -144,7 +144,7 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
 	$.ajax({
     type: "get",
     url: "https://spreadsheets.google.com/feeds/list/1CvJhQMxeu6Jgh3-KHNXiAhGu5MpG45JkQa8sFwwxBTg/od6/public/values?alt=json-in-script&callback=?",
-    dataType: "jsonp",
+    dataType: "json",
 	    success: function(json){
 	        $scope.hero_skill_list =[];
 	        _(json.feed.entry).each(function (item) {
