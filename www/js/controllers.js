@@ -14,6 +14,21 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 	$scope.is_show = false;
 	$scope.lv ='';
 
+	$.ajax({
+    type: "get",
+    url: "https://spreadsheets.google.com/feeds/list/1Su8cajlsyRYssKkuOiBuDAVrO8h6hIxlr0ucl1ahsZQ/od6/public/values?alt=json-in-script&callback=?",
+    dataType: "jsonp",
+	    success: function(json){
+	    	console.log(json);
+	        $scope.hero_data =[];
+	        _(json.feed.entry).each(function (item) {
+	        	var d = {'name':item.gsx$name.$t,'name_2':item.gsx$name2.$t,'class':item.gsx$class.$t,'star':item.gsx$star.$t,'attack':item.gsx$attack.$t,'life':item.gsx$life.$t,'attack_up':item.gsx$attackup.$t,'life_up':item.gsx$lifeup.$t}
+	        	$scope.hero_data.push(d);
+	        });
+	        console.log($scope.hero_data);
+	    }
+    });
+
 	$scope.get_name='';
 	$scope.select_name =  [
 		{name:'愛神'},
@@ -47,7 +62,8 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 		{name:'影舞者'},
 		{name:'幽靈法師'},
 		{name:'蒼藍之翼'},
-		{name:'甜心女皇'}
+		{name:'甜心女皇'},
+		{name:'幽靈之王'}
 	  ];
 
 	$scope.get_class='';
@@ -81,7 +97,6 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 		$scope.get_star = option;
 	};  
 		
-
 	$scope.Calculate=function(){
 		$scope.lv=$scope.input.number;
 		$scope.check ={'status':true};
@@ -102,29 +117,23 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 			var name_type = $scope.get_name.name;
 			var class_type = $scope.get_class.class_d;
 			var star_type = $scope.get_star.star;
-			igg.get_hero_data(name_type,class_type,star_type).then(function(res){
-				console.log(res);
-				$scope.check ={'status':false};
-				$scope.btn_status = "計算數值";
-				$scope.name_d = res.data.results[0].name_2;
-				$scope.at = res.data.results[0].attack;
-				$scope.at_up = res.data.results[0].attack_up;
-				$scope.life = res.data.results[0].life;
-				$scope.life_up = res.data.results[0].life_up;
-				$scope.star_d = res.data.results[0].star;
-				// 星級生命值+生命成長X（英雄等級-1）
-				$scope.re_life = $scope.life + $scope.life_up*($scope.input.number-1);
-				// 星級攻擊力+攻擊成長X（英雄等級-1）
-				$scope.re_at = $scope.at + $scope.at_up*($scope.input.number-1);
-				$scope.is_show = true;
-			});			
+			var d2 = _.where($scope.hero_data, {name:name_type, star:star_type.toString(), class:class_type.toString()});	
+			console.log(d2);
+			$scope.check ={'status':false};
+			$scope.btn_status = "計算數值";
+			$scope.name_d = d2[0].name2;
+			$scope.at = d2[0].attack;
+			$scope.at_up = d2[0].attack_up;
+			$scope.life = d2[0].life;
+			$scope.life_up = d2[0].life_up;
+			$scope.star_d = d2[0].star;
+			// 星級生命值+生命成長X（英雄等級-1）
+			$scope.re_life = parseInt($scope.life) + parseInt($scope.life_up)*($scope.input.number-1);
+			// 星級攻擊力+攻擊成長X（英雄等級-1）
+			$scope.re_at = parseInt($scope.at) + parseInt($scope.at_up)*($scope.input.number-1);
+			$scope.is_show = true;		
 		}
-
-
 	}
-
-
-
 
 });
 
@@ -133,19 +142,25 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
 	$ionicLoading.show({
       template: '載入資料中...'
     });
-	$timeout(function() {
-	    igg.get_hero_skill().then(function(res){
-			// console.log(res);
-			$ionicLoading.hide();
-			$scope.hero_skill_list = res.data.results;
-		});		
- 	}, 100);
+
+	$.ajax({
+    type: "get",
+    url: "https://spreadsheets.google.com/feeds/list/1CvJhQMxeu6Jgh3-KHNXiAhGu5MpG45JkQa8sFwwxBTg/od6/public/values?alt=json-in-script&callback=?",
+    dataType: "jsonp",
+	    success: function(json){
+	        $scope.hero_skill_list =[];
+	        _(json.feed.entry).each(function (item) {
+	        	var d = {'name':item.gsx$name.$t,'skill':item.gsx$skill.$t,'des':item.gsx$des.$t}
+	        	$scope.hero_skill_list.push(d);
+	        });
+	        $ionicLoading.hide();
+	    }
+    });
 	
 	$scope.gotop = function(){
 		$ionicScrollDelegate.resize();
     	$ionicScrollDelegate.anchorScroll(false); //回顶部2
-	}
-	
+	}	
 
 });
 
