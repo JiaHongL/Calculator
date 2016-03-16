@@ -1,5 +1,21 @@
-<ion-view view-title="未定頁面">
-  <ion-content overflow-scroll="false">
-    <p>暫時尚未決定要做哪種計算...</p>
+<ion-view view-title="技能＆天賦＆聖器查詢">
+    <div class="bar bar-subheader" style="padding-top:0px;">
+		<div class="bar bar-header item-input-inset" style="padding-top:5px;padding-bottom:5px;">
+		  <label class="item-input-wrapper">
+		    <i class="icon ion-ios-search placeholder-icon"></i>
+		    <input type="search" placeholder="Search" ng-model="Listdata" ng-change="gotop()">
+		  </label>
+		  <button class="button button-clear" ng-click="Listdata=''">
+		    Cancel
+		  </button>
+		</div>
+	</div>
+  <ion-content overflow-scroll="false" class="has-subheader">
+	<ul class="list">
+	    <li class="item item-text-wrap" ng-repeat="list in hero_skill_list | filter:Listdata">
+	    	<span>{{list.name}}   {{list.skill}}</span>
+	    	<p>{{list.des}}</p>
+	    </li>
+	</ul>
   </ion-content>
 </ion-view>

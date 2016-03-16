@@ -12,7 +12,7 @@
 	</div>
   <ion-content overflow-scroll="false" class="has-subheader">
 	<ul class="list">
-	    <li class="item item-text-wrap" ng-repeat="list in hero_skill_list | filter:Listdata">
+	    <li class="item item-text-wrap" ng-repeat="list in hero_skill_list | filter:Listdata track by list.des">
 	    	<span>{{list.name}}   {{list.skill}}</span>
 	    	<p>{{list.des}}</p>
 	    </li>

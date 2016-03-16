@@ -152,8 +152,10 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
 	        _(json.feed.entry).each(function (item) {
 	        	var d = {'name':item.gsx$name.$t,'skill':item.gsx$skill.$t,'des':item.gsx$des.$t}
 	        	$scope.hero_skill_list.push(d);
+
 	        });
 	        $ionicLoading.hide();
+	        console.log($scope.hero_skill_list);
 	    }
     });
 	
