@@ -1,4 +1,4 @@
-myApp.controller('calculateCtrl', function($scope,igg) {
+myApp.controller('calculateCtrl', function($scope,igg,$ionicPopup) {
 	$scope.input={'number':100};
 	$scope.se="愛神";
 	$scope.check ={'status':false};
@@ -75,16 +75,16 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 
 	$scope.get_star='';
 	$scope.select_star =  [
-		{name:'一星',star:1},
-		{name:'二星',star:2},
-		{name:'三星',star:3},
-		{name:'四星',star:4},
-		{name:'五星',star:5},
-		{name:'六星',star:6},
-		{name:'七星',star:7},
-		{name:'八星',star:8},
-		{name:'九星',star:9},
-		{name:'十星',star:10},
+		{name:'一星 [ 001 ~ 020 等]',star:1},
+		{name:'二星 [ 020 ~ 040 等]',star:2},
+		{name:'三星 [ 040 ~ 060 等]',star:3},
+		{name:'四星 [ 060 ~ 080 等]',star:4},
+		{name:'五星 [ 080 ~ 100 等]',star:5},
+		{name:'六星 [ 100 ~ 120 等]',star:6},
+		{name:'七星 [ 120 ~ 140 等]',star:7},
+		{name:'八星 [ 140 ~ 160 等]',star:8},
+		{name:'九星 [ 160 ~ 180 等]',star:9},
+		{name:'十星 [ 180 ~ 200 等]',star:10},
 	  ];
 
 	$scope.getOpt = function(option){
@@ -97,6 +97,7 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 		$scope.get_star = option;
 	};  
 		
+	var res = {Messages:''};
 	$scope.Calculate=function(){
 		$scope.lv=$scope.input.number;
 		$scope.check ={'status':true};
@@ -105,33 +106,60 @@ myApp.controller('calculateCtrl', function($scope,igg) {
 			$scope.is_show = false;
 			$scope.check ={'status':false};
 			$scope.btn_status = "計算數值";
-			alert('請輸入正確的等級範圍');
+			res.Messages = '請輸入正確的等級範圍';
+			$ionicPopup.alert({title: '<p class="Fs_1_5 Fw_900 no-margin">提示</p>',template: '<p class="text-center">' + res.Messages + '</p>',buttons: [{ text: '确定',type: 'button-positive' }]});
 		}
 		else if(typeof($scope.input.number)==undefined||typeof($scope.input.number)=='undefined'){
 			$scope.is_show = false;
 			$scope.check ={'status':false};
 			$scope.btn_status = "計算數值";
-			alert('等級請輸入數字');			
+			res.Messages = '等級請輸入數字';
+			$ionicPopup.alert({title: '<p class="Fs_1_5 Fw_900 no-margin">提示</p>',template: '<p class="text-center">' + res.Messages + '</p>',buttons: [{ text: '确定',type: 'button-positive' }]});		
 		}
 		else{
-			var name_type = $scope.get_name.name;
-			var class_type = $scope.get_class.class_d;
-			var star_type = $scope.get_star.star;
-			var d2 = _.where($scope.hero_data, {name:name_type, star:star_type.toString(), class:class_type.toString()});	
-			// console.log(d2);
-			$scope.check ={'status':false};
-			$scope.btn_status = "計算數值";
-			$scope.name_d = d2[0].name2;
-			$scope.at = d2[0].attack;
-			$scope.at_up = d2[0].attack_up;
-			$scope.life = d2[0].life;
-			$scope.life_up = d2[0].life_up;
-			$scope.star_d = d2[0].star;
-			// 星級生命值+生命成長X（英雄等級-1）
-			$scope.re_life = parseInt($scope.life) + parseInt($scope.life_up)*($scope.input.number-1);
-			// 星級攻擊力+攻擊成長X（英雄等級-1）
-			$scope.re_at = parseInt($scope.at) + parseInt($scope.at_up)*($scope.input.number-1);
-			$scope.is_show = true;		
+			var input_value = $scope.input.number;
+			if($scope.get_star.star==1){
+				var start_value = $scope.get_star.star;
+				var end_value = ($scope.get_star.star)*10*2;
+			}else{
+				var start_value =  ($scope.get_star.star-1)*20;
+				var end_value = ($scope.get_star.star)*10*2;
+			}
+			if($scope.get_name=='' || $scope.get_class =='' || $scope.get_star==''){
+				$scope.is_show = false;
+				$scope.check ={'status':false};
+				$scope.btn_status = "計算數值";
+				res.Messages = '尚有項目未選取';
+				$ionicPopup.alert({title: '<p class="Fs_1_5 Fw_900 no-margin">提示</p>',template: '<p class="text-center">' + res.Messages + '</p>',buttons: [{ text: '确定',type: 'button-positive' }]});
+			}else{
+				if(start_value > input_value || end_value < input_value){
+					$scope.is_show = false;
+					$scope.check ={'status':false};
+					$scope.btn_status = "計算數值";
+					res.Messages = '請輸入正確星級範圍內的等級';
+					$ionicPopup.alert({title: '<p class="Fs_1_5 Fw_900 no-margin">提示</p>',template: '<p class="text-center">' + res.Messages + '</p>',buttons: [{ text: '确定',type: 'button-positive' }]});
+				}else{
+					var name_type = $scope.get_name.name;
+					var class_type = $scope.get_class.class_d;
+					var star_type = $scope.get_star.star;
+					var d2 = _.where($scope.hero_data, {name:name_type, star:star_type.toString(), class:class_type.toString()});	
+					// console.log(d2);
+					$scope.check ={'status':false};
+					$scope.btn_status = "計算數值";
+					$scope.name_d = d2[0].name2;
+					$scope.at = d2[0].attack;
+					$scope.at_up = d2[0].attack_up;
+					$scope.life = d2[0].life;
+					$scope.life_up = d2[0].life_up;
+					$scope.star_d = d2[0].star;
+					// 星級生命值+生命成長X（英雄等級-1）
+					$scope.re_life = parseInt($scope.life) + parseInt($scope.life_up)*($scope.input.number-1);
+					// 星級攻擊力+攻擊成長X（英雄等級-1）
+					$scope.re_at = parseInt($scope.at) + parseInt($scope.at_up)*($scope.input.number-1);
+					$scope.is_show = true;					
+				}				
+			}
+
 		}
 	}
 
