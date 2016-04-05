@@ -187,8 +187,16 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
     });
 	
 	$scope.gotop = function(){
-		$ionicScrollDelegate.resize();
-    	$ionicScrollDelegate.anchorScroll(false); //回顶部2
+		$ionicLoading.show({
+	      template: '查詢中...'
+	    });
+        var mytimeout = $timeout(function () {
+        	$ionicLoading.hide();
+        	$ionicScrollDelegate.resize();
+    		$ionicScrollDelegate.anchorScroll(false); //回顶部2
+        }, 1000);
+
+
 	}	
 
 });
