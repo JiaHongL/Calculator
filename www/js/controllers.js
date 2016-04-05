@@ -143,10 +143,9 @@ myApp.controller('calculateCtrl', function($scope,igg,$ionicPopup) {
 					var class_type = $scope.get_class.class_d;
 					var star_type = $scope.get_star.star;
 					var d2 = _.where($scope.hero_data, {name:name_type, star:star_type.toString(), class:class_type.toString()});	
-					// console.log(d2);
 					$scope.check ={'status':false};
 					$scope.btn_status = "計算數值";
-					$scope.name_d = d2[0].name2;
+					$scope.name_d = d2[0].name_2;
 					$scope.at = d2[0].attack;
 					$scope.at_up = d2[0].attack_up;
 					$scope.life = d2[0].life;
@@ -183,7 +182,7 @@ myApp.controller('calculate2Ctrl', function($scope,igg,$timeout,$ionicLoading,$i
 
 	        });
 	        $ionicLoading.hide();
-	        console.log($scope.hero_skill_list);
+	        // console.log($scope.hero_skill_list);
 	    }
     });
 	
