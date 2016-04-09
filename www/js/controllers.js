@@ -63,7 +63,9 @@ myApp.controller('calculateCtrl', function($scope,igg,$ionicPopup) {
 		{name:'幽靈法師'},
 		{name:'蒼藍之翼'},
 		{name:'甜心女皇'},
-		{name:'幽靈之王'}
+		{name:'幽靈之王'},
+		{name:'馴獸師'},
+		{name:'熊寶'}
 	  ];
 
 	$scope.get_class='';
